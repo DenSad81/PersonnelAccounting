@@ -8,42 +8,40 @@ class Program
 {
     static void Main(string[] args)
     {
-        const char AddFile = '1';
-        const char PrintAllFiles = '2';
-        const char DeleteFile = '3';
-        const char SerchInFiles = '4';
-        const char Exit = '5';
+        const string AddingFile = "1";
+        const string PrintingAllFiles = "2";
+        const string DeletingFile = "3";
+        const string SerchingInFiles = "4";
+        const string Exit = "5";
 
         string[] fullNames = new string[5] { "Aa Zz", "Aa Xx", "Cc Kk", "Aa Pp", "Ee Ww" };
         string[] fullJobNames = new string[5] { "a", "b", "c", "d", "e" };
-        char choiceOfMenu;
         bool isRun = true;
 
         while (isRun)
         {
-            Console.WriteLine($"Меню: {AddFile}-добавить досье;");
-            Console.WriteLine($"      {PrintAllFiles}-вывести все досье;");
-            Console.WriteLine($"      {DeleteFile}-удалить досье;");
-            Console.WriteLine($"      {SerchInFiles}-поиск по фамилии;");
+            Console.WriteLine($"Меню: {AddingFile}-добавить досье;");
+            Console.WriteLine($"      {PrintingAllFiles}-вывести все досье;");
+            Console.WriteLine($"      {DeletingFile}-удалить досье;");
+            Console.WriteLine($"      {SerchingInFiles}-поиск по фамилии;");
             Console.WriteLine($"      {Exit}-выход;");
             Console.Write("Ваш выбор: ");
-            choiceOfMenu = Convert.ToChar(Console.ReadLine());
 
-            switch (choiceOfMenu)
+            switch (Console.ReadLine())
             {
-                case AddFile:
+                case AddingFile:
                     AddUserFile(ref fullNames, ref fullJobNames);
                     break;
 
-                case PrintAllFiles:
+                case PrintingAllFiles:
                     PrintAllUserFiles(fullNames, fullJobNames);
                     break;
 
-                case DeleteFile:
+                case DeletingFile:
                     DeleteUserFile(ref fullNames, ref fullJobNames);
                     break;
 
-                case SerchInFiles:
+                case SerchingInFiles:
                     SearchInUserFile(fullNames);
                     break;
 
@@ -97,10 +95,24 @@ class Program
         Console.WriteLine();
     }
 
+    static int GetIntFromConsole()
+    {
+        int digitToOut = 0;
+        bool isRun = true;
+
+        while (isRun)
+        {
+            string digitFromConsole = Console.ReadLine();
+            isRun = !int.TryParse(digitFromConsole, out digitToOut);
+        }
+
+        return digitToOut;
+    }
+
     static void DeleteUserFile(ref string[] array1, ref string[] array2)
     {
         Console.Write("Введите позицию для удаления: ");
-        int positionInArray = Convert.ToInt32(Console.ReadLine());
+        int positionInArray = GetIntFromConsole();
 
         positionInArray--;
 
@@ -136,11 +148,10 @@ class Program
 
     static void SearchInUserFile(string[] names)
     {
-        int[] resultsOfSerch;
         Console.Write("Введите ФИО человека: ");
         string name = Console.ReadLine();
 
-        SearchElementInArray(names, out resultsOfSerch, name);
+        int[] resultsOfSerch = SearchElementInArray(names, name);
 
         if (resultsOfSerch.Length > 0)
         {
@@ -157,16 +168,18 @@ class Program
         }
     }
 
-    static void SearchElementInArray(string[] array, out int[] results, string data)
+    static int[] SearchElementInArray(string[] array, string data, string separator = " ")
     {
-        results = new int[0];
+        int[] results = new int[0];
 
         for (int i = 0; i < array.Length; i++)
         {
-            string[] subArray = array[i].Split(' ');
+            string[] subArray = array[i].Split(separator);
 
             if (subArray[0] == data)
                 AddElementInArrayOfInt(ref results, i + 1);
         }
+
+        return results;
     }
 }
