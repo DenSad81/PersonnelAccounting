@@ -8,11 +8,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        const string AddingFile = "1";
-        const string PrintingAllFiles = "2";
-        const string DeletingFile = "3";
-        const string SerchingInFiles = "4";
-        const string Exit = "5";
+        const string AddingFileCommand = "1";
+        const string PrintingAllFilesCommand = "2";
+        const string DeletingFileCommand = "3";
+        const string SerchingInFilesCommand = "4";
+        const string ExitCommand = "5";
 
         string[] fullNames = new string[5] { "Aa Zz", "Aa Xx", "Cc Kk", "Aa Pp", "Ee Ww" };
         string[] fullJobNames = new string[5] { "a", "b", "c", "d", "e" };
@@ -20,32 +20,32 @@ class Program
 
         while (isRun)
         {
-            Console.WriteLine($"Меню: {AddingFile}-добавить досье;");
-            Console.WriteLine($"      {PrintingAllFiles}-вывести все досье;");
-            Console.WriteLine($"      {DeletingFile}-удалить досье;");
-            Console.WriteLine($"      {SerchingInFiles}-поиск по фамилии;");
-            Console.WriteLine($"      {Exit}-выход;");
+            Console.WriteLine($"Меню: {AddingFileCommand}-добавить досье;");
+            Console.WriteLine($"      {PrintingAllFilesCommand}-вывести все досье;");
+            Console.WriteLine($"      {DeletingFileCommand}-удалить досье;");
+            Console.WriteLine($"      {SerchingInFilesCommand}-поиск по фамилии;");
+            Console.WriteLine($"      {ExitCommand}-выход;");
             Console.Write("Ваш выбор: ");
 
             switch (Console.ReadLine())
             {
-                case AddingFile:
+                case AddingFileCommand:
                     AddUserFile(ref fullNames, ref fullJobNames);
                     break;
 
-                case PrintingAllFiles:
+                case PrintingAllFilesCommand:
                     PrintAllUserFiles(fullNames, fullJobNames);
                     break;
 
-                case DeletingFile:
+                case DeletingFileCommand:
                     DeleteUserFile(ref fullNames, ref fullJobNames);
                     break;
 
-                case SerchingInFiles:
+                case SerchingInFilesCommand:
                     SearchInUserFile(fullNames);
                     break;
 
-                case Exit:
+                case ExitCommand:
                     isRun = false;
                     break;
             }
@@ -95,7 +95,7 @@ class Program
         Console.WriteLine();
     }
 
-    static int GetIntFromConsole()
+    static int GetInt()
     {
         int digitToOut = 0;
         bool isRun = true;
@@ -112,7 +112,7 @@ class Program
     static void DeleteUserFile(ref string[] array1, ref string[] array2)
     {
         Console.Write("Введите позицию для удаления: ");
-        int positionInArray = GetIntFromConsole();
+        int positionInArray = GetInt();
 
         positionInArray--;
 
